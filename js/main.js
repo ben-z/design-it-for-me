@@ -6,7 +6,7 @@ class App extends React.Component {
       fn_name: "some-fn",
       fn_parameters: ["p1","p2",""], // (listof Str)
       fn_purpose: "produces something magical with consumed parameters p1 and p2 on multiple lines.",
-      fn_contract: ["Num","(listof num)"], // (listof Str)
+      fn_contract: ["Num","(listof Num)"], // (listof Str)
       fn_contract_output: "Num",
       fn_requires: [""]
     });
