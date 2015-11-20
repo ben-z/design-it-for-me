@@ -88,3 +88,8 @@ a,a:visited{
 input:focus, textarea:focus{
   border-color: black !important;
 }
+@media screen and (max-width: 48em){
+  #github-ribbon{
+    display:none !important;
+  }
+}

@@ -138,7 +138,7 @@ class App extends React.Component {
 
     let renderedPurpose = `(${this.state.fn_name} ${valid_params.join(" ")}) ${this.state.fn_purpose}`;
 
-    let renderedContract = `${this.state.fn_name}: ${this.state.fn_contract.join(" ").trim()} => ${this.state.fn_contract_output}`;
+    let renderedContract = `${this.state.fn_name}: ${this.state.fn_contract.join(" ").trim()} -> ${this.state.fn_contract_output}`;
 
     let renderedRequires = (this.state.fn_requires.length===1&&this.state.fn_requires[0]==="")?"":`;; requires: ${this.state.fn_requires.join("\n;;           ")}\n`;;
 
