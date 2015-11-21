@@ -136,6 +136,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.num_cols);
     let params = this.listToInput(this.state.fn_parameters,this.handleParamChange);
     let contract = this.listToInput(this.state.fn_contract,this.handleContractChange);
     let requires = this.listToInput(this.state.fn_requires,this.handleRequiresChange);
@@ -178,8 +179,8 @@ class App extends React.Component {
               <div className="pure-u-23-24"><input type="text" className="pure-input-1" value={this.state.fn_name} name="fn_name" onChange={this.handleTextChange} /></div></label>
             </div>
             <div className="pure-u-2-5">
-              <label># of Columns:
-              <div className="pure-u-23-24"><input type="number" className="pure-input-1" value={this.state.num_cols} min={10} max={600} name="num_cols" onChange={this.handleTextChange} /></div></label>
+              <label># of Columns [{this.state.num_cols}]:
+              <div className="pure-u-23-24"><input type="range" className="pure-input-1 range" value={this.state.num_cols} min={25} max={100} name="num_cols" onChange={this.handleTextChange} /></div></label>
             </div>
             <div className="pure-u-1-5">
               <label>&nbsp;
