@@ -144,16 +144,16 @@ class App extends React.Component {
 
     let renderedPurpose = `(${this.state.fn_name} ${valid_params.join(" ")}) ${this.state.fn_purpose}`;
 
-    let renderedContract = `${this.state.fn_name}: ${this.state.fn_contract.join(" ").trim()} -> ${this.state.fn_contract_output}`;
+    let renderedContract = this.trim_output(`;; ${this.state.fn_name}: ${this.state.fn_contract.join(" ").trim()} -> ${this.state.fn_contract_output}\n`,this.state.num_cols,this.state.fn_name.length+2);
 
-    let renderedRequires = (this.state.fn_requires.length===1&&this.state.fn_requires[0]==="")?"":this.trim_output(`;; requires: ${this.state.fn_requires.filter((data)=>data!=="").join(",\n;;           ")}\n`,this.state.num_cols,10);;
+    let renderedRequires = (this.state.fn_requires.length===1&&this.state.fn_requires[0]==="")?"":this.trim_output(`;; requires: ${this.state.fn_requires.filter((data)=>data!=="").join(",\n;;           ")}\n`,this.state.num_cols,10);
 
     let check_expect_tmpl = `(check-expect (${this.state.fn_name} ${valid_params.map(()=>"...").join(" ")}) ...)`;
 
     let fn_template = `(define (${this.state.fn_name} ${valid_params.join(" ")})\n  (...))`;
 
     let rendered = this.trim_output(`;; ${renderedPurpose}\n`
-                 + `;; ${renderedContract}\n`
+                 + renderedContract
                  + renderedRequires
                  + `;; Examples:\n`
                  + check_expect_tmpl+"\n"
