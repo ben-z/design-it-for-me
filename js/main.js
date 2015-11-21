@@ -163,7 +163,7 @@ class App extends React.Component {
                  + check_expect_tmpl, this.state.num_cols);
 
     let missing_params_in_purpose = this.state.fn_parameters.filter((val, i) => {
-      return val!=="" && (" "+this.state.fn_purpose.replace(/,|\.|\n/g," ")+" ").indexOf(" "+val+" ") === -1;
+      return val!=="" && (" "+this.state.fn_purpose.replace(/[^\w\s]/g," ")+" ").indexOf(" "+val+" ") === -1;
     });
 
     return (
