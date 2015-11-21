@@ -219,7 +219,7 @@ class App extends React.Component {
             <h3>Checklist</h3>
             <ol>
               <li>Purpose includes parameter names {missing_params_in_purpose.length===0? <i className="fa fa-check color-success"></i>:<i className="fa fa-times color-danger"></i>}</li>
-              {missing_params_in_purpose.length===0?"":<ul><li>Missing parameters: <span className="color-danger">{missing_params_in_purpose.join(", ")}</span></li></ul>}
+              {missing_params_in_purpose.length===0?"":<ul><li>Missing parameters:&nbsp;<span className="color-danger">{missing_params_in_purpose.join(", ")}</span></li></ul>}
             </ol>
           </div>
         </div>
