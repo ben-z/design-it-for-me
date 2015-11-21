@@ -106,16 +106,22 @@ class App extends React.Component {
     });
   }
 
-  trim_output(str, cols){
+  trim_output(str, cols, add_spaces=0){
     if(cols<5) cols = 5;
+    let make_spaces = function(n){
+      if(n<=0){
+        return "";
+      }else{
+        return " "+make_spaces(n-1);
+      }
+    }
     let append_comment = function(val){
       if(val.length <= cols){
         return val;
       }else if(val.substring(5, cols).indexOf(" ")<=-1){
-        return val.substring(0, cols)+"\n"+append_comment(";;   "+val.substring(cols));
+        return val.substring(0, cols)+"\n"+append_comment(";;   "+make_spaces(add_spaces)+val.substring(cols));
       }else{
-        return val.substring(0,val.substring(0, cols).lastIndexOf(" "))+"\n"+append_comment(";;  "+val.substring(val.substring(0, cols).lastIndexOf(" ")));
-
+        return val.substring(0,val.substring(0, cols).lastIndexOf(" "))+"\n"+append_comment(";;  "+make_spaces(add_spaces)+val.substring(val.substring(0, cols).lastIndexOf(" ")));
       }
     }
     let los = str.split("\n");
@@ -140,7 +146,7 @@ class App extends React.Component {
 
     let renderedContract = `${this.state.fn_name}: ${this.state.fn_contract.join(" ").trim()} -> ${this.state.fn_contract_output}`;
 
-    let renderedRequires = (this.state.fn_requires.length===1&&this.state.fn_requires[0]==="")?"":`;; requires: ${this.state.fn_requires.join("\n;;           ")}\n`;;
+    let renderedRequires = (this.state.fn_requires.length===1&&this.state.fn_requires[0]==="")?"":this.trim_output(`;; requires: ${this.state.fn_requires.filter((data)=>data!=="").join(",\n;;           ")}\n`,this.state.num_cols,10);;
 
     let check_expect_tmpl = `(check-expect (${this.state.fn_name} ${valid_params.map(()=>"...").join(" ")}) ...)`;
 
@@ -157,7 +163,7 @@ class App extends React.Component {
                  + check_expect_tmpl, this.state.num_cols);
 
     let missing_params_in_purpose = this.state.fn_parameters.filter((val, i) => {
-      return val!=="" && this.state.fn_purpose.replace(","," ").indexOf(" "+val+" ") === -1;
+      return val!=="" && this.state.fn_purpose.replace(/,|\./g," ").indexOf(" "+val+" ") === -1;
     });
 
     return (
@@ -208,19 +214,23 @@ class App extends React.Component {
           </div>
           </fieldset>
         </form>
+        <div className="pure-g">
+          <div className="pure-u-1">
+            <h3>Checklist</h3>
+            <ol>
+              <li>Purpose includes parameter names {missing_params_in_purpose.length===0? <i className="fa fa-check color-success"></i>:<i className="fa fa-times color-danger"></i>}</li>
+              {missing_params_in_purpose.length===0?"":<ul><li>Missing parameters: <span className="color-danger">{missing_params_in_purpose.join(", ")}</span></li></ul>}
+            </ol>
+          </div>
+        </div>
         <br />
         <div className="pure-g pure-form">
           <div className="pure-u-1">
             <h3>Output</h3>
+            <p>Select everything in the box below and paste into your racket definition window.</p>
             <textarea className="output pure-input-1" value={rendered} cols={this.state.num_cols} rows={(rendered.match(/\n/g) || []).length+1} onMouseOver={(e)=> e.target.select()} readOnly></textarea>
           </div>
         </div>
-        <br />
-        <h3>Checklist</h3>
-        <ol>
-        <li>Purpose includes parameter names {missing_params_in_purpose.length===0? <i className="fa fa-check color-success"></i>:<i className="fa fa-times color-danger"></i>}</li>
-        {missing_params_in_purpose.length===0?"":<ul><li>Missing parameters: <span className="color-danger">{missing_params_in_purpose.join(", ")}</span></li></ul>}
-        </ol>
       </div>
     );
   }
