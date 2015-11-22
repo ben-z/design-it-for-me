@@ -227,7 +227,7 @@ class App extends React.Component {
         <div className="pure-g pure-form">
           <div className="pure-u-1">
             <h3>Output</h3>
-            <p>Select everything in the box below and paste into your racket definition window.</p>
+            <p>Select everything in the box below and paste into your Dr. Racket definitions window.</p>
             <textarea className="output pure-input-1" value={rendered} cols={this.state.num_cols} rows={(rendered.match(/\n/g) || []).length+1} onMouseOver={(e)=> e.target.select()} readOnly></textarea>
           </div>
         </div>
