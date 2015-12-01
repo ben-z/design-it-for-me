@@ -28,10 +28,9 @@ class App extends React.Component {
   }
 
   handleTextChange(e){
-    // Prevent new lines
-    if (e.target.value.indexOf("\n") !== -1) return e.preventDefault();
     let s = {};
-    s[e.target.name]=e.target.value;
+    // New line characters are replaced with spaces.
+    s[e.target.name]=e.target.value.replace(/\n/g," ");
     return this.setState(s);
   }
 
